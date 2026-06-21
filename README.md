@@ -12,6 +12,24 @@ The current tooling includes browser-side MagicaVoxel .vox parsing, conversion i
 
 The repository is split out because asset format design deserves independent iteration from gameplay pages and contract logic.
 
+## Architecture Diagrams
+
+### Conversion Pipeline
+
+![NCM conversion pipeline](docs/diagrams/ncm-conversion-pipeline.svg)
+
+The conversion pipeline starts with a MagicaVoxel `.vox` file and keeps the entire process local to the browser or command-line tool. The parser reads the voxel grid, model dimensions, and palette. The optimizer then merges neighboring voxels with the same color into larger cuboids. That step is the reason NCM is practical: the runtime does not need to preserve every source voxel when the same shape can be represented by fewer boxes.
+
+The final output is an `NCM2:` text record. The record can be stored, transported, decoded, and rendered without relying on an opaque binary package or external media gateway. In the long term, this is the path that makes small 3D assets viable for program-owned accounts or account-adjacent metadata.
+
+### Data Layout
+
+![NCM data layout](docs/diagrams/ncm-data-layout.svg)
+
+The NCM layout is intentionally simple. A record contains a format prefix, palette data, a cuboid count, and a stream of cuboid records. Each cuboid stores position, dimensions, and a palette index. That design keeps the model inspectable while still giving the renderer enough information to rebuild geometry efficiently.
+
+This is not meant to compete with full cinematic 3D formats. NCM is designed for compact, deterministic, game-readable assets: equipment, collectibles, characters, props, and other objects where portability and verification matter more than arbitrary scene complexity.
+
 ## System Principles
 
 - Compactness matters: the format is designed around cuboids and merged boxes so 3D assets can remain small.

@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">NCM conversion pipeline</title>
+  <desc id="desc">A flow diagram showing how a MagicaVoxel file is parsed, merged into cuboids, encoded as NCM text, stored or transported, and rendered by clients.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071018"/>
+      <stop offset="0.52" stop-color="#0c1621"/>
+      <stop offset="1" stop-color="#11170f"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#83ff00"/>
+      <stop offset="1" stop-color="#00c2ff"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2 2 L10 6 L2 10 Z" fill="#7fdcff"/>
+    </marker>
+    <style>
+      .title { font: 800 44px Inter, ui-sans-serif, system-ui, sans-serif; fill: #f1f7ff; letter-spacing: 0; }
+      .subtitle { font: 500 18px Inter, ui-sans-serif, system-ui, sans-serif; fill: #aebdca; }
+      .step-title { font: 800 19px Inter, ui-sans-serif, system-ui, sans-serif; fill: #f2f7fb; }
+      .step-copy { font: 500 14px Inter, ui-sans-serif, system-ui, sans-serif; fill: #b8c7d4; }
+      .label { font: 800 12px Inter, ui-sans-serif, system-ui, sans-serif; fill: #90ff1a; letter-spacing: .16em; }
+      .small { font: 700 12px Inter, ui-sans-serif, system-ui, sans-serif; fill: #8fdcff; }
+      .card { fill: rgba(255,255,255,.06); stroke: rgba(255,255,255,.17); stroke-width: 1.2; rx: 18; }
+      .line { stroke: #7fdcff; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .thin { stroke: rgba(127,220,255,.42); stroke-width: 1.2; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <circle cx="1045" cy="120" r="230" fill="#83ff00" opacity=".08"/>
+  <circle cx="230" cy="610" r="270" fill="#00c2ff" opacity=".08"/>
+
+  <text x="70" y="88" class="label">NICECHUNK ASSET FORMAT</text>
+  <text x="70" y="142" class="title">NCM conversion pipeline</text>
+  <text x="70" y="178" class="subtitle">A browser-local path from editable voxel art to compact, RPC-readable cuboid assets.</text>
+
+  <g transform="translate(68 240)">
+    <rect class="card" width="186" height="260"/>
+    <text x="24" y="44" class="small">01</text>
+    <text x="24" y="78" class="step-title">MagicaVoxel .vox</text>
+    <text x="24" y="110" class="step-copy">Artist-authored voxel</text>
+    <text x="24" y="132" class="step-copy">model with palette and</text>
+    <text x="24" y="154" class="step-copy">cell coordinates.</text>
+    <g transform="translate(46 184)">
+      <rect x="0" y="0" width="30" height="30" fill="#7cff00"/>
+      <rect x="34" y="0" width="30" height="30" fill="#1cc8ff"/>
+      <rect x="68" y="0" width="30" height="30" fill="#f1c45b"/>
+      <rect x="17" y="-34" width="30" height="30" fill="#7cff00"/>
+      <rect x="51" y="-34" width="30" height="30" fill="#1cc8ff"/>
+      <path d="M0 30 L17 48 H115 L98 30 Z" fill="#071018" stroke="#3e5968"/>
+    </g>
+  </g>
+
+  <path class="line" d="M272 370 H350"/>
+
+  <g transform="translate(372 240)">
+    <rect class="card" width="186" height="260"/>
+    <text x="24" y="44" class="small">02</text>
+    <text x="24" y="78" class="step-title">Local parser</text>
+    <text x="24" y="110" class="step-copy">Reads model size, XYZI</text>
+    <text x="24" y="132" class="step-copy">voxels, RGBA palette,</text>
+    <text x="24" y="154" class="step-copy">and source metadata.</text>
+    <g transform="translate(34 186)">
+      <rect x="0" y="0" width="118" height="48" fill="#0b131c" stroke="#314b5d"/>
+      <text x="14" y="30" class="small">VOX chunks</text>
+      <path class="thin" d="M14 58 H104"/>
+      <text x="14" y="84" class="step-copy">SIZE</text>
+      <text x="70" y="84" class="step-copy">XYZI</text>
+      <text x="14" y="106" class="step-copy">RGBA</text>
+      <text x="70" y="106" class="step-copy">MAIN</text>
+    </g>
+  </g>
+
+  <path class="line" d="M576 370 H654"/>
+
+  <g transform="translate(676 240)">
+    <rect class="card" width="220" height="260"/>
+    <text x="24" y="44" class="small">03</text>
+    <text x="24" y="78" class="step-title">Cuboid optimizer</text>
+    <text x="24" y="110" class="step-copy">Groups same-color</text>
+    <text x="24" y="132" class="step-copy">neighbor voxels into</text>
+    <text x="24" y="154" class="step-copy">larger boxes.</text>
+    <g transform="translate(36 184)">
+      <rect x="0" y="0" width="58" height="36" fill="#7cff00"/>
+      <rect x="64" y="0" width="22" height="36" fill="#1cc8ff"/>
+      <rect x="92" y="0" width="58" height="36" fill="#f1c45b"/>
+      <rect x="0" y="-42" width="86" height="36" fill="#7cff00" opacity=".78"/>
+      <rect x="92" y="-42" width="58" height="36" fill="#1cc8ff" opacity=".78"/>
+      <path d="M-8 48 H160" stroke="#314b5d" stroke-width="2"/>
+      <text x="6" y="72" class="step-copy">less cells, same shape</text>
+    </g>
+  </g>
+
+  <path class="line" d="M914 370 H992"/>
+
+  <g transform="translate(1014 240)">
+    <rect class="card" width="198" height="260"/>
+    <text x="24" y="44" class="small">04</text>
+    <text x="24" y="78" class="step-title">NCM text</text>
+    <text x="24" y="110" class="step-copy">Plain compact record:</text>
+    <text x="24" y="132" class="step-copy">prefix, palette, count,</text>
+    <text x="24" y="154" class="step-copy">signed boxes.</text>
+    <g transform="translate(24 188)">
+      <rect x="0" y="-18" width="150" height="78" fill="#0b131c" stroke="#314b5d"/>
+      <text x="14" y="10" class="step-title" fill="#90ff1a">NCM2:</text>
+      <text x="14" y="36" class="step-copy">palette | boxes | dims</text>
+      <text x="14" y="58" class="step-copy">portable ASCII payload</text>
+    </g>
+  </g>
+
+  <path class="line" d="M1098 512 C1014 586 830 596 714 542"/>
+  <path class="line" d="M1130 512 C1188 574 1180 624 1122 646"/>
+
+  <g transform="translate(482 556)">
+    <rect class="card" width="294" height="96"/>
+    <text x="24" y="36" class="step-title">Program-owned account</text>
+    <text x="24" y="64" class="step-copy">Store compact text in public state.</text>
+    <text x="24" y="84" class="step-copy">Fetch and verify through RPC.</text>
+  </g>
+  <g transform="translate(916 556)">
+    <rect class="card" width="294" height="96"/>
+    <text x="24" y="36" class="step-title">Client renderer</text>
+    <text x="24" y="64" class="step-copy">Decode boxes and rebuild meshes.</text>
+    <text x="24" y="84" class="step-copy">Render in games, tools, or previews.</text>
+  </g>
+
+  <text x="70" y="694" class="subtitle">The conversion path is local, inspectable, and designed for small asset records rather than opaque external media blobs.</text>
+</svg>
