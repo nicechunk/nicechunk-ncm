@@ -30,6 +30,14 @@ The NCM layout is intentionally simple. A record contains a format prefix, palet
 
 This is not meant to compete with full cinematic 3D formats. NCM is designed for compact, deterministic, game-readable assets: equipment, collectibles, characters, props, and other objects where portability and verification matter more than arbitrary scene complexity.
 
+### Cuboid Merge Optimizer
+
+![NCM cuboid merge optimizer](docs/diagrams/cuboid-merge-optimizer.svg)
+
+The merge optimizer is the practical reason NCM can stay compact. A `.vox` source can contain many unit cells, but contiguous cells with the same palette value can often be represented as one larger cuboid. The converter should preserve authored shape while removing storage that is redundant for runtime reconstruction.
+
+That optimization is also where future compatibility needs discipline. Raw mode is useful for debugging and loss analysis. Merge mode is useful for production-style assets. Both paths should decode into the same kind of canonical cuboid list so renderers, validators, and future account storage do not need to understand editor-specific voxel files.
+
 ## System Principles
 
 - Compactness matters: the format is designed around cuboids and merged boxes so 3D assets can remain small.
