@@ -4,6 +4,12 @@
 
 NCM on-chain 3D asset format and local VOX converter.
 
+## Official Links
+
+GitHub: [https://github.com/nicechunk/nicechunk-ncm](https://github.com/nicechunk/nicechunk-ncm)
+
+Website: [https://nicechunk.com/ncm/](https://nicechunk.com/ncm/)
+
 ## Project Overview
 
 This repository contains the NCM asset format page and conversion tooling. NCM is a compact text representation for cuboid-based 3D assets that can be inspected, transported, and potentially stored in program-owned accounts.
