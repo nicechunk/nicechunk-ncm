@@ -36,6 +36,8 @@ The NCM layout is intentionally simple. A record contains a format prefix, palet
 
 This is not meant to compete with full cinematic 3D formats. NCM is designed for compact, deterministic, game-readable assets: equipment, collectibles, characters, props, and other objects where portability and verification matter more than arbitrary scene complexity.
 
+See [NCM Format Notes](docs/ncm-format.md) for the current `NCM2:` envelope, coordinate mapping, and compatibility rules.
+
 ### Cuboid Merge Optimizer
 
 ![NCM cuboid merge optimizer](docs/diagrams/cuboid-merge-optimizer.svg)
@@ -69,6 +71,7 @@ A dedicated NCM repository gives asset tooling a clear home and lets other proje
 - `ncm/`
 - `src/vox/`
 - `scripts/vox-to-ncm.mjs`
+- `docs/ncm-format.md`
 - `public/media/vox/`
 
 ## Development Workflow
